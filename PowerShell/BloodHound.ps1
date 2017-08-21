@@ -933,7 +933,7 @@ filter Convert-SidToName {
             'S-1-5-19'      { 'NT Authority' }
             'S-1-5-20'      { 'NT Authority' }
             'S-1-5-80-0'    { 'All Services ' }
-            'S-1-5-32-544'  { 'BUILTIN\Administrators' }
+            'S-1-5-32-544'  { 'BUILTIN\Administratoren' }
             'S-1-5-32-545'  { 'BUILTIN\Users' }
             'S-1-5-32-546'  { 'BUILTIN\Guests' }
             'S-1-5-32-547'  { 'BUILTIN\Power Users' }
@@ -957,7 +957,7 @@ filter Convert-SidToName {
             'S-1-5-32-575'  { 'BUILTIN\RDS Remote Access Servers' }
             'S-1-5-32-576'  { 'BUILTIN\RDS Endpoint Servers' }
             'S-1-5-32-577'  { 'BUILTIN\RDS Management Servers' }
-            'S-1-5-32-578'  { 'BUILTIN\Hyper-V Administrators' }
+            'S-1-5-32-578'  { 'BUILTIN\Hyper-V Administratoren' }
             'S-1-5-32-579'  { 'BUILTIN\Access Control Assistance Operators' }
             'S-1-5-32-580'  { 'BUILTIN\Access Control Assistance Operators' }
             Default {
@@ -2928,7 +2928,7 @@ function Get-GroupsXML {
                 # extract the localgroup sid for memberof
                 $GroupSID = $_.Group.Properties.GroupSid
                 if(-not $LocalSid) {
-                    if($Groupname -match 'Administrators') {
+                    if($Groupname -match 'Administratoren') {
                         $GroupSID = 'S-1-5-32-544'
                     }
                     elseif($Groupname -match 'Remote Desktop') {
@@ -3155,7 +3155,7 @@ function Get-NetGPOGroup {
                     $GroupName = $Membership.Key
 
                     if($GroupName -and ($GroupName.Trim() -ne '')) {
-                        if($Groupname -match 'Administrators') {
+                        if($Groupname -match 'Administratoren') {
                             $GroupSID = 'S-1-5-32-544'
                         }
                         elseif($Groupname -match 'Remote Desktop') {
@@ -3267,8 +3267,8 @@ function Find-GPOLocation {
     .PARAMETER LocalGroup
 
         The local group to check access against.
-        Can be "Administrators" (S-1-5-32-544), "RDP/Remote Desktop Users" (S-1-5-32-555),
-        or a custom local SID. Defaults to local 'Administrators'.
+        Can be "Administratoren" (S-1-5-32-544), "RDP/Remote Desktop Users" (S-1-5-32-555),
+        or a custom local SID. Defaults to local 'Administratoren'.
 
     .PARAMETER UsePSDrive
 
@@ -3283,7 +3283,7 @@ function Find-GPOLocation {
         PS C:\> Find-GPOLocation
 
         Find all user/group -> machine relationships where the user/group is a member
-        of the local administrators group on target machines.
+        of the local Administratoren group on target machines.
 
     .EXAMPLE
 
@@ -3315,7 +3315,7 @@ function Find-GPOLocation {
         $DomainController,
 
         [String]
-        $LocalGroup = 'Administrators',
+        $LocalGroup = 'Administratoren',
 
         [Switch]
         $UsePSDrive,
@@ -3338,7 +3338,7 @@ function Find-GPOLocation {
         $TargetLocalSID = $LocalGroup
     }
     else {
-        throw "LocalGroup must be 'Administrators', 'RDP', or a 'S-1-5-X' SID format."
+        throw "LocalGroup must be 'Administratoren', 'RDP', or a 'S-1-5-X' SID format."
     }
 
     if(-not $TargetSIDs) {
@@ -3509,7 +3509,7 @@ function Get-NetLocalGroup {
 
     .PARAMETER GroupName
 
-        The local group name to query for users. If not given, it defaults to "Administrators"
+        The local group name to query for users. If not given, it defaults to "Administratoren"
 
     .PARAMETER Recurse
 
@@ -3533,7 +3533,7 @@ function Get-NetLocalGroup {
 
         PS C:\> Get-NetLocalGroup
 
-        Returns the usernames that of members of localgroup "Administrators" on the local host.
+        Returns the usernames that of members of localgroup "Administratoren" on the local host.
 
     .EXAMPLE
 
@@ -3579,7 +3579,7 @@ function Get-NetLocalGroup {
         [Parameter(ParameterSetName = 'WinNT')]
         [Parameter(ParameterSetName = 'API')]
         [String]
-        $GroupName = 'Administrators',
+        $GroupName = 'Administratoren',
 
         [Parameter(ParameterSetName = 'API')]
         [Switch]
@@ -5286,7 +5286,7 @@ function Invoke-BloodHound {
                 'S-1-5-19'      = @('NT Authority', 'USER')
                 'S-1-5-20'      = @('NT Authority', 'USER')
                 'S-1-5-80-0'    = @('All Services ', 'GROUP')
-                'S-1-5-32-544'  = @('Administrators', 'GROUP')
+                'S-1-5-32-544'  = @('Administratoren', 'GROUP')
                 'S-1-5-32-545'  = @('Users', 'GROUP')
                 'S-1-5-32-546'  = @('Guests', 'GROUP')
                 'S-1-5-32-547'  = @('Power Users', 'GROUP')
@@ -5310,7 +5310,7 @@ function Invoke-BloodHound {
                 'S-1-5-32-575'  = @('RDS Remote Access Servers', 'GROUP')
                 'S-1-5-32-576'  = @('RDS Endpoint Servers', 'GROUP')
                 'S-1-5-32-577'  = @('RDS Management Servers', 'GROUP')
-                'S-1-5-32-578'  = @('Hyper-V Administrators', 'GROUP')
+                'S-1-5-32-578'  = @('Hyper-V Administratoren', 'GROUP')
                 'S-1-5-32-579'  = @('Access Control Assistance Operators', 'GROUP')
                 'S-1-5-32-580'  = @('Access Control Assistance Operators', 'GROUP')
             }
