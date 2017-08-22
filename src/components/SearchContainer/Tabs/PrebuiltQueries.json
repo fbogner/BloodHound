@@ -8,11 +8,31 @@
 			"props": {"name": "(?i).*DOMAIN ADMINS.*"}
 		},
 		{
+			"name": "Find all Domain Admins (German)",
+			"requireNodeSelect": false,
+			"query": "MATCH (n:Group) WHERE n.name =~ {name} WITH n MATCH (n)<-[r:MemberOf*1..]-(m) RETURN n,r,m",
+			"allowCollapse": false,
+			"props": {"name": "(?i).*DOMÄNEN-ADMINS.*"}
+		},
+		{
 			"name": "Find Shortest Paths to Domain Admins",
 			"requireNodeSelect": true,
 			"nodeSelectQuery":  {
 				"query":"MATCH (n:Group) WHERE n.name =~ {name} RETURN n.name",
 				"queryProps": {"name":"(?i).*DOMAIN ADMINS.*"},
+                "onFinish": "MATCH (n:User),(m:Group {name:{result}}),p=shortestPath((n)-[*1..]->(m)) RETURN p",
+                "start":"",
+                "end": "{}",
+                "allowCollapse": true,
+                "boxTitle": "Select domain to map..."
+			}
+		},
+		{
+			"name": "Find Shortest Paths to Domain Admins (German)",
+			"requireNodeSelect": true,
+			"nodeSelectQuery":  {
+				"query":"MATCH (n:Group) WHERE n.name =~ {name} RETURN n.name",
+				"queryProps": {"name":"(?i).*DOMÄNEN-ADMINS.*"},
                 "onFinish": "MATCH (n:User),(m:Group {name:{result}}),p=shortestPath((n)-[*1..]->(m)) RETURN p",
                 "start":"",
                 "end": "{}",
